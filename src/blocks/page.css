@@ -1,0 +1,13 @@
+* {
+  scroll-behavior: smooth;
+}
+
+.page {
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  font-family: "inter", sans-serif;
+  background-color: #000000;
+  color: white;
+}

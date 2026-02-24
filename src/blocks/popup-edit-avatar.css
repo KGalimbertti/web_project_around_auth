@@ -1,0 +1,99 @@
+.popup-edit-avatar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgb(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+
+.popup__opened {
+  display: flex;
+}
+
+.popup-edit-avatar__container {
+  width: 430px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 36px;
+  background-color: white;
+}
+
+.popup-edit-avatar__close-button {
+  width: 33px;
+  height: 33px;
+  background-image: url("../images/close-button.png");
+  background-color: transparent;
+  position: absolute;
+  border: 0;
+  top: -45px;
+  right: -50px;
+}
+
+.popup-edit-avatar__close-button:hover {
+  opacity: 0.6;
+}
+
+.popup-edit-avatar__title {
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 24px;
+  color: #000000;
+  margin: 0;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.popup-edit-avatar__submit-button {
+  width: 358px;
+  height: 50px;
+  background-color: transparent;
+  color: white;
+  background-image: url("./../images/submit-button.png");
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+  margin-top: 48px;
+}
+
+.popup-edit-avatar__submit-button:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 544px) {
+  .popup-edit-avatar__container {
+    width: 90%;
+  }
+
+  .popup-edit-avatar__form {
+    width: 282px;
+    height: 322px;
+    padding: 25px;
+    background-color: white;
+    border-radius: 10px;
+  }
+
+  .popup-edit-avatar__submit-button {
+    width: 238px;
+    height: 46px;
+  }
+
+  .popup-edit-avatar__close-button {
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    background-size: 26px;
+    top: -40px;
+    right: -5px;
+    border: 0;
+  }
+}

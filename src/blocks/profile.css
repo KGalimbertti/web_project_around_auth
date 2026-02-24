@@ -1,0 +1,165 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  max-width: 880px;
+  margin-top: 40px;
+  width: 100%;
+  align-items: center;
+}
+
+.profile__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile__avatar {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-right: 15px;
+}
+
+.profile__avatar-image {
+  margin-right: 30px;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+}
+
+.profile__avatar-edit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  border: 0;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.8) url("./../images/edit-avatar.png") no-repeat
+    center;
+}
+
+.profile__avatar-edit:hover {
+  opacity: 1;
+}
+
+.profile__info-content {
+  display: flex;
+}
+
+.profile__text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  margin-right: 18px;
+}
+
+.profile__text-name {
+  border-width: 1px;
+  font-size: 42px;
+  line-height: 48px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  max-width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.profile__text-description {
+  font-size: 18px;
+  line-height: 100%;
+  font-weight: 400;
+  text-align: left;
+  text-overflow: ellipsis;
+  max-width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.profile__edit-button {
+  height: 24px;
+  width: 24px;
+  background-color: transparent;
+  border: 0;
+  margin-top: 15px;
+  background-image: url("./../images/edit-button.png");
+}
+
+.profile__edit-button:hover {
+  height: 24px;
+  width: 24px;
+  background-color: transparent;
+  border: 0;
+  opacity: 0.6;
+}
+
+.profile__add-button {
+  width: 154px;
+  height: 54px;
+  color: white;
+  background-image: url("./../images/add-button.png");
+  background-color: transparent;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 1024px) {
+  .profile {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+}
+
+@media screen and (max-width: 544px) {
+  .profile {
+    justify-content: center;
+  }
+
+  .profile__info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile__avatar {
+    margin-bottom: 26px;
+  }
+
+  .profile__text-name {
+    font-size: 22px;
+    line-height: 100%;
+    font-weight: 500;
+    margin-bottom: 14px;
+    margin-top: 38px;
+  }
+
+  .profile__text-description {
+    font-size: 14px;
+    line-height: 100%;
+    font-weight: 400;
+    align-items: center;
+  }
+
+  .profile__edit-button {
+    margin-top: 35px;
+  }
+
+  .profile__add-button {
+    margin-top: 36px;
+  }
+}
