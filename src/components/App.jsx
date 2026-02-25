@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import Header from "./Header/Header";
-import Main from "./Main/Main";
+import Main from "../pages/Main/Main";
 import Footer from "./Footer/Footer";
 import api from "../utils/api";
 import CurrentUserContext from "../contexts/CurrentUserContext";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import Register from "../pages/Register/Register";
+import Login from "../pages/Login/Login";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -44,8 +47,8 @@ function App() {
         .then((newCard) => {
           setCards((state) =>
             state.map((currentCard) =>
-              currentCard._id === card._id ? newCard : currentCard
-            )
+              currentCard._id === card._id ? newCard : currentCard,
+            ),
           );
         })
         .catch((error) => console.error(error));
@@ -55,8 +58,8 @@ function App() {
         .then((newCard) => {
           setCards((state) =>
             state.map((currentCard) =>
-              currentCard._id === card._id ? newCard : currentCard
-            )
+              currentCard._id === card._id ? newCard : currentCard,
+            ),
           );
         })
         .catch((error) => console.error(error));
@@ -84,7 +87,7 @@ function App() {
         handleClosePopup();
       })
       .catch((error) =>
-        console.log("Erro ao tentar criar um novo local", error)
+        console.log("Erro ao tentar criar um novo local", error),
       );
   }
 
@@ -103,18 +106,27 @@ function App() {
       >
         <div className="page">
           <Header />
-
-          <Main
-            cards={cards}
-            handleAddPlaceSubmit={handleAddPlaceSubmit}
-            handleCardLike={handleCardLike}
-            handleCardDelete={handleCardDelete}
-            popup={popup}
-            handleOpenPopup={handleOpenPopup}
-            handleClosePopup={handleClosePopup}
-          />
-
-          <Footer />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Main
+                    cards={cards}
+                    handleAddPlaceSubmit={handleAddPlaceSubmit}
+                    handleCardLike={handleCardLike}
+                    handleCardDelete={handleCardDelete}
+                    popup={popup}
+                    handleOpenPopup={handleOpenPopup}
+                    handleClosePopup={handleClosePopup}
+                  />
+                  <Footer />
+                </>
+              }
+            />
+            <Route path="/signup" element={<Register />} />
+            <Route path="/signin" element={<Login />} />
+          </Routes>
         </div>
       </CurrentUserContext.Provider>
     </>

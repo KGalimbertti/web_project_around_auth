@@ -1,0 +1,63 @@
+.register {
+  background-color: rgb(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.register__container {
+  max-width: 430px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 36px;
+}
+
+.register__input {
+  width: 358px;
+  height: 28px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  border: 0;
+  background-color: transparent;
+  border-bottom: 1px solid white;
+  gap: 30px;
+}
+
+.register__submit-button {
+  width: 358px;
+  height: 50px;
+  background-color: transparent;
+  color: black;
+  background-image: url("./../images/submit-button-white.png");
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+  margin-top: 216px;
+}
+
+.register__submit-button:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 544px) {
+  .register__container {
+    width: 90%;
+  }
+
+  .register__input {
+    width: 238px;
+    height: 26px;
+    gap: 30px;
+  }
+
+  .register__submit-button {
+    width: 238px;
+    height: 46px;
+  }
+}

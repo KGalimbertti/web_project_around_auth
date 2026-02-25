@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import heart from "../../../../images/like-button.png";
-import bin from "../../../../images/delete-button.png";
-import ImagePopup from "../Popup/components/ImagePopup/ImagePopup";
-import CurrentUserContext from "../../../../contexts/CurrentUserContext";
+import heart from "../../images/like-button.png";
+import bin from "../../images/delete-button.png";
+import ImagePopup from "../Popup/ImagePopup/ImagePopup";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 const Card = (props) => {
   const { name, link, isLiked } = props.card;

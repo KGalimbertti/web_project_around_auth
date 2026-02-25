@@ -1,5 +1,6 @@
 .header {
   display: flex;
+  justify-content: space-between;
   margin: 0 auto;
   max-width: 880px;
   height: 74px;
@@ -8,10 +9,25 @@
 }
 
 .header__vector {
-  justify-content: flex-start;
   width: 173px;
   height: 33px;
   margin-top: 45px;
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 51px;
+}
+
+.header__content {
+  margin: 0;
+  color: #a9a9a9;
+}
+
+.header__button-logout {
+  color: #a9a9a9;
 }
 
 @media screen and (max-width: 1024px) {
