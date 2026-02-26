@@ -105,7 +105,6 @@ function App() {
         value={{ currentUser, handleUpdateUser, setCurrentUser }}
       >
         <div className="page">
-          <Header />
           <Routes>
             <Route
               path="/"

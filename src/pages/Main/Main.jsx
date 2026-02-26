@@ -6,6 +6,8 @@ import EditProfile from "../../components/Popup/EditProfile/EditProfile";
 import EditAvatar from "../../components/Popup/EditAvatar/EditAvatar";
 import api from "../../utils/api";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import Header from "../../components/Header/Header";
+import { Link } from "react-router-dom";
 
 const Main = (props) => {
   const {
@@ -54,6 +56,14 @@ const Main = (props) => {
 
   return (
     <>
+      <Header
+        rightElement={
+          <div className="header__container">
+            <p className="header__content">kaue@gmail.com</p>
+            <Link className="header__button-logout">Sair</Link>
+          </div>
+        }
+      />
       <main className="main">
         <section className="profile">
           <div className="profile__info">
