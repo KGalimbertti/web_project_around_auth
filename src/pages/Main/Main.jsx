@@ -120,11 +120,11 @@ const Main = (props) => {
             {popup.children}
           </Popup>
         )}
-        <button onClick={() => handleClick}>Open Tooltip</button>
+        <button onClick={handleClick}>Open Tooltip</button>
         <InfoTooltip
           info={"Deu certo"}
           isVisible={isVisible}
-          onClose={setIsVisible(false)}
+          onClose={() => setIsVisible(false)}
         />
       </main>
     </>

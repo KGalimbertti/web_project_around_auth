@@ -16,15 +16,17 @@
 
 .info-tooltip__container {
   width: 430px;
+  height: 330px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   margin: 0 auto;
   position: relative;
   border-radius: 10px;
   box-sizing: border-box;
   padding: 36px;
-  /* background-color: white; */
+  background-color: white;
 }
 
 .info-tooltip__close-button {
@@ -49,5 +51,7 @@
   font-size: 14px;
   line-height: 100%;
   border: 0;
-  border-bottom: 1px solid black;
+  color: #000000;
+  margin-top: 42px;
+  text-align: center;
 }
