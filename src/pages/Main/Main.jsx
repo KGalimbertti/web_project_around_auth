@@ -8,6 +8,7 @@ import api from "../../utils/api";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import Header from "../../components/Header/Header";
 import { Link } from "react-router-dom";
+import InfoTooltip from "../../components/InfoTooltip/InfoTooltip";
 
 const Main = (props) => {
   const {
@@ -53,6 +54,10 @@ const Main = (props) => {
     title: "Edit Avatar",
     children: <EditAvatar onUpdateAvatar={handleUpdateAvatar} />,
   };
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  const handleClick = () => setIsVisible(true);
 
   return (
     <>
@@ -115,6 +120,12 @@ const Main = (props) => {
             {popup.children}
           </Popup>
         )}
+        <button onClick={() => handleClick}>Open Tooltip</button>
+        <InfoTooltip
+          info={"Deu certo"}
+          isVisible={isVisible}
+          onClose={setIsVisible(false)}
+        />
       </main>
     </>
   );
