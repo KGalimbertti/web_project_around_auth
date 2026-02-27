@@ -5,13 +5,16 @@ import Footer from "./Footer/Footer";
 import api from "../utils/api";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import { getToken, setToken } from "../utils/token";
 import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
+import InfoTooltip from "./InfoTooltip/InfoTooltip";
+import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [popup, setPopup] = useState(null);
 
   useEffect(() => {
@@ -99,6 +102,32 @@ function App() {
     })();
   };
 
+  const handleLogin = ({ email, password }) => {
+    if (!email || !password) {
+      return;
+    }
+
+    auth
+      .authorize(email, password)
+      .then((data) => {
+        if (data.jwt) {
+          setToken(data.jwt);
+          setUserData(data.user);
+          setIsLoggedIn(true);
+          navigate("/signin");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    const jwt = getToken();
+
+    if (!jwt) {
+      return;
+    }
+  }, []);
+
   return (
     <>
       <CurrentUserContext.Provider
@@ -110,21 +139,37 @@ function App() {
               path="/"
               element={
                 <>
-                  <Main
-                    cards={cards}
-                    handleAddPlaceSubmit={handleAddPlaceSubmit}
-                    handleCardLike={handleCardLike}
-                    handleCardDelete={handleCardDelete}
-                    popup={popup}
-                    handleOpenPopup={handleOpenPopup}
-                    handleClosePopup={handleClosePopup}
-                  />
-                  <Footer />
+                  <ProtectedRoute>
+                    <Main
+                      cards={cards}
+                      handleAddPlaceSubmit={handleAddPlaceSubmit}
+                      handleCardLike={handleCardLike}
+                      handleCardDelete={handleCardDelete}
+                      popup={popup}
+                      handleOpenPopup={handleOpenPopup}
+                      handleClosePopup={handleClosePopup}
+                    />
+                    <Footer />
+                  </ProtectedRoute>
                 </>
               }
             />
-            <Route path="/signup" element={<Register />} />
-            <Route path="/signin" element={<Login />} />
+            <Route
+              path="/signup"
+              element={
+                <ProtectedRoute>
+                  <Register element={handleRegister} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/signin"
+              element={
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <Login element={handleLogin} onSubmit={onLogin} />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </div>
       </CurrentUserContext.Provider>

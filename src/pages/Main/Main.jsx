@@ -59,13 +59,20 @@ const Main = (props) => {
 
   const handleClick = () => setIsVisible(true);
 
+  const onSignOut = () => {
+    localStorage.removeItem("token");
+    setCurrentUser({});
+  };
+
   return (
     <>
       <Header
         rightElement={
           <div className="header__container">
-            <p className="header__content">kaue@gmail.com</p>
-            <Link className="header__button-logout">Sair</Link>
+            <p className="header__content">{currentUser.email}</p>
+            <Link className="header__button-logout" onClick={onSignOut}>
+              Sair
+            </Link>
           </div>
         }
       />
