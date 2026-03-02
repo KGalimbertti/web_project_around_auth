@@ -10,12 +10,15 @@ import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
 import InfoTooltip from "./InfoTooltip/InfoTooltip";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
+import auth from "../utils/auth";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [popup, setPopup] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     api
@@ -114,7 +117,7 @@ function App() {
           setToken(data.jwt);
           setUserData(data.user);
           setIsLoggedIn(true);
-          navigate("/signin");
+          navigate("/");
         }
       })
       .catch((err) => console.log(err));
@@ -126,6 +129,17 @@ function App() {
     if (!jwt) {
       return;
     }
+    auth
+      .getContent(jwt)
+      .then((data) => {
+        setUserData(data);
+        setIsLoggedIn(true);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        setToken("");
+      });
   }, []);
 
   return (
@@ -139,7 +153,7 @@ function App() {
               path="/"
               element={
                 <>
-                  <ProtectedRoute>
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
                     <Main
                       cards={cards}
                       handleAddPlaceSubmit={handleAddPlaceSubmit}
@@ -156,19 +170,11 @@ function App() {
             />
             <Route
               path="/signup"
-              element={
-                <ProtectedRoute>
-                  <Register element={handleRegister} />
-                </ProtectedRoute>
-              }
+              element={<Register element={handleRegister} />}
             />
             <Route
               path="/signin"
-              element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Login element={handleLogin} onSubmit={onLogin} />
-                </ProtectedRoute>
-              }
+              element={<Login element={handleLogin} onSubmit={onLogin} />}
             />
           </Routes>
         </div>

@@ -43,56 +43,56 @@ const Login = ({ handleLogin, element }) => {
       });
     }
   }
-};
 
-return (
-  <>
-    <Header
-      rightElement={
-        <Link className="header__container" to="/signup">
-          Registrar-se
-        </Link>
-      }
-    />
-    <div className="login">
-      <div className="login__container">
-        <h1>Entrar</h1>
-        <form onSubmit={handleFormSubmit}>
-          <input
-            className="login__input"
-            type="text"
-            placeholder="E-mail"
-            name="email"
-            value={data.email}
-            onChange={handleLoginSubmit}
-            required
-          />
-          <input
-            className="login__input"
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={data.password}
-            onChange={handleLoginSubmit}
-            required
-          />
-          <button className="login__submit-button" type="submit">
-            Entrar
-          </button>
-        </form>
-        <p>
-          Ainda não é membro? <Link to="/signup">Inscreva-se aqui</Link>
-        </p>
+  return (
+    <>
+      <Header
+        rightElement={
+          <Link className="header__container" to="/signup">
+            Registrar-se
+          </Link>
+        }
+      />
+      <div className="login">
+        <div className="login__container">
+          <h1>Entrar</h1>
+          <form onSubmit={handleFormSubmit}>
+            <input
+              className="login__input"
+              type="text"
+              placeholder="E-mail"
+              name="email"
+              value={data.email}
+              onChange={handleLoginSubmit}
+              required
+            />
+            <input
+              className="login__input"
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={data.password}
+              onChange={handleLoginSubmit}
+              required
+            />
+            <button className="login__submit-button" type="submit">
+              Entrar
+            </button>
+          </form>
+          <p>
+            Ainda não é membro? <Link to="/signup">Inscreva-se aqui</Link>
+          </p>
+        </div>
       </div>
-    </div>
 
-    <InfoTooltip
-      info={tooltip.info}
-      isVisible={tooltip.isVisible}
-      onClose={closeTooltip}
-      tooltipType={tooltip.tooltipType}
-    />
-  </>
-);
+      <InfoTooltip
+        info={tooltip.info}
+        isVisible={tooltip.isVisible}
+        onClose={closeTooltip}
+        tooltipType={tooltip.tooltipType}
+      />
+    </>
+  );
+};
 
 export default Login;
