@@ -1,26 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import { useState } from "react";
 import InfoTooltip from "../../components/InfoTooltip/InfoTooltip";
 import { login } from "../../utils/auth";
+import { setToken } from "../../utils/token";
 
 const Login = ({}) => {
-  const handleLogin = ({ email, password }) => {
+  const navigate = useNavigate();
+
+  const handleLogin = async (email, password) => {
     if (!email || !password) {
       return;
     }
-
-    auth.authorize(email, password);
-    login(password, email)
-      .then((data) => {
-        if (data.jwt) {
-          setToken(data.jwt);
-          setUserData(data.user);
-          setIsLoggedIn(true);
-          navigate("/");
-        }
-      })
-      .catch((err) => console.log(err));
+    return await login(email, password);
   };
   const [isVisible, setIsVisible] = useState(false);
   const [data, setData] = useState({
@@ -34,7 +26,7 @@ const Login = ({}) => {
     tooltipType: "success",
   });
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginInput = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({
       ...prevData,
@@ -44,14 +36,19 @@ const Login = ({}) => {
 
   async function handleFormSubmit(e) {
     e.preventDefault();
-
     try {
-      await handleLogin(data.email, data.password);
-      setTooltip({
-        isVisible: true,
-        info: "Login realizado com sucesso.",
-        tooltipType: "success",
-      });
+      console.log("chegou aqui");
+      const response = await handleLogin(data.email, data.password);
+      console.log(response);
+      if (response) {
+        setToken(response.token);
+        setTooltip({
+          isVisible: true,
+          info: "Login realizado com sucesso.",
+          tooltipType: "success",
+        });
+      }
+      navigate("/");
     } catch (error) {
       setTooltip({
         isVisible: true,
@@ -80,7 +77,7 @@ const Login = ({}) => {
               placeholder="E-mail"
               name="email"
               value={data.email}
-              onChange={handleLoginSubmit}
+              onChange={handleLoginInput}
               required
             />
             <input
@@ -89,7 +86,7 @@ const Login = ({}) => {
               placeholder="Password"
               name="password"
               value={data.password}
-              onChange={handleLoginSubmit}
+              onChange={handleLoginInput}
               required
             />
             <button className="login__submit-button" type="submit">
@@ -105,7 +102,7 @@ const Login = ({}) => {
       <InfoTooltip
         info={tooltip.info}
         isVisible={tooltip.isVisible}
-        onClose={() => setIsVisible(false)}
+        onClose={() => setTooltip((prev) => ({ ...prev, isVisible: false }))}
         tooltipType={tooltip.tooltipType}
       />
     </>

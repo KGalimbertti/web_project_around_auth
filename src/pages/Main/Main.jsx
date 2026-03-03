@@ -7,7 +7,7 @@ import EditAvatar from "../../components/Popup/EditAvatar/EditAvatar";
 import api from "../../utils/api";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import Header from "../../components/Header/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InfoTooltip from "../../components/InfoTooltip/InfoTooltip";
 
 const Main = (props) => {
@@ -23,6 +23,7 @@ const Main = (props) => {
 
   const userContext = useContext(CurrentUserContext);
   const { currentUser, setCurrentUser } = userContext;
+  const navigate = useNavigate();
 
   const handleUpdateUser = (data) => {
     (async () => {
@@ -60,8 +61,9 @@ const Main = (props) => {
   const handleClick = () => setIsVisible(true);
 
   const onSignOut = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("jwt");
     setCurrentUser({});
+    navigate("/signin");
   };
 
   return (
@@ -70,9 +72,9 @@ const Main = (props) => {
         rightElement={
           <div className="header__container">
             <p className="header__content">{currentUser.email}</p>
-            <Link className="header__button-logout" onClick={onSignOut}>
+            <button className="header__button-logout" onClick={onSignOut}>
               Sair
-            </Link>
+            </button>
           </div>
         }
       />

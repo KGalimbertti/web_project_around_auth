@@ -29,6 +29,11 @@
 
 .header__button-logout {
   color: #a9a9a9;
+  background: none;
+  cursor: pointer;
+  padding: 0px;
+  border: none;
+  text-decoration: underline;
 }
 
 @media screen and (max-width: 1024px) {

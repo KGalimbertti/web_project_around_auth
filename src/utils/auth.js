@@ -1,12 +1,12 @@
 export const BASE_URL = "https://se-register-api.en.tripleten-services.com/v1";
 
-export const register = (password, email) => {
-  return fetch(`${BASE_URL}/register`, {
+export const register = (email, password) => {
+  return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ password, email }),
+    body: JSON.stringify({ email, password }),
   }).then((response) => {
     if (!response.ok) {
       throw new Error("Failed to register");
@@ -16,12 +16,12 @@ export const register = (password, email) => {
 };
 
 export const login = (email, password) => {
-  return fetch(`${BASE_URL}/login`, {
+  return fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ password, email }),
+    body: JSON.stringify({ email, password }),
   }).then((response) => {
     if (!response.ok) {
       throw new Error("Failed to login");
