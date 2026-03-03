@@ -2,15 +2,34 @@ import { Link } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import { useState } from "react";
 import InfoTooltip from "../../components/InfoTooltip/InfoTooltip";
+import { login } from "../../utils/auth";
 
-const Login = ({ handleLogin, element }) => {
+const Login = ({}) => {
+  const handleLogin = ({ email, password }) => {
+    if (!email || !password) {
+      return;
+    }
+
+    auth.authorize(email, password);
+    login(password, email)
+      .then((data) => {
+        if (data.jwt) {
+          setToken(data.jwt);
+          setUserData(data.user);
+          setIsLoggedIn(true);
+          navigate("/");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  const [isVisible, setIsVisible] = useState(false);
   const [data, setData] = useState({
     email: "",
     password: "",
   });
 
   const [tooltip, setTooltip] = useState({
-    isVisible: false,
+    isVisible: isVisible,
     info: "",
     tooltipType: "success",
   });
@@ -25,11 +44,9 @@ const Login = ({ handleLogin, element }) => {
 
   async function handleFormSubmit(e) {
     e.preventDefault();
-    const loginFn = handleLogin || element;
 
     try {
-      if (!loginFn) throw new Error("Função de login não fornecida");
-      await loginFn({ email: data.email, password: data.password });
+      await handleLogin(data.email, data.password);
       setTooltip({
         isVisible: true,
         info: "Login realizado com sucesso.",
@@ -88,7 +105,7 @@ const Login = ({ handleLogin, element }) => {
       <InfoTooltip
         info={tooltip.info}
         isVisible={tooltip.isVisible}
-        onClose={closeTooltip}
+        onClose={() => setIsVisible(false)}
         tooltipType={tooltip.tooltipType}
       />
     </>

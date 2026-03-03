@@ -10,7 +10,7 @@ import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
 import InfoTooltip from "./InfoTooltip/InfoTooltip";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
-import auth from "../utils/auth";
+import { register, login, logout } from "../utils/auth";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -110,8 +110,8 @@ function App() {
       return;
     }
 
-    auth
-      .authorize(email, password)
+    auth.authorize(email, password);
+    login(password, email)
       .then((data) => {
         if (data.jwt) {
           setToken(data.jwt);
@@ -123,14 +123,31 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  const handleRegister = ({ email, password }) => {
+    if (!email || !password) {
+      return;
+    }
+
+    register(email, password)
+      .then(() => {
+        setPopup("success");
+        navigate("/signin");
+      })
+      .catch((err) => {
+        console.log(err);
+        setPopup("error");
+      });
+  };
+
   useEffect(() => {
     const jwt = getToken();
 
     if (!jwt) {
       return;
     }
-    auth
-      .getContent(jwt)
+
+    api
+      .getUserInfo()
       .then((data) => {
         setUserData(data);
         setIsLoggedIn(true);
@@ -168,14 +185,8 @@ function App() {
                 </>
               }
             />
-            <Route
-              path="/signup"
-              element={<Register element={handleRegister} />}
-            />
-            <Route
-              path="/signin"
-              element={<Login element={handleLogin} onSubmit={onLogin} />}
-            />
+            <Route path="/signup" element={<Register />} />
+            <Route path="/signin" element={<Login />} />
           </Routes>
         </div>
       </CurrentUserContext.Provider>
