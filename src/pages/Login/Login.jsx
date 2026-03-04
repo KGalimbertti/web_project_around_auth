@@ -37,7 +37,6 @@ const Login = ({}) => {
   async function handleFormSubmit(e) {
     e.preventDefault();
     try {
-      console.log("chegou aqui");
       const response = await handleLogin(data.email, data.password);
       console.log(response);
       if (response) {
